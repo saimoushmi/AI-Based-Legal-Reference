@@ -1,0 +1,19 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables & secrets (NEVER PUSH SECRETS TO GITHUB)
+.env
+Milestone2/.env
+Milestone3/.env
+*.env
+
+# Python cache & temp
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# SQLite databases
+*.db
