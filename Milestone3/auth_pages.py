@@ -28,49 +28,49 @@ def get_img_as_base64(file=None):
 
 
 def apply_custom_styling():
-    img, mime_type = get_img_as_base64("bg.jpg")  # The function now returns the correct mime type
-    if img:
-        st.markdown(f"""
+    img, mime_type = get_img_as_base64("bg.jpg")
+    background = (
+        f'background-image: linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.78)), '
+        f'url("data:{mime_type};base64,{img}");'
+        if img else "background-color: #0b1220;"
+    )
+    st.markdown(f"""
         <style>
             [data-testid="stHeader"], footer {{ display: none; }}
 
             .stApp {{
-                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                            url("data:{mime_type};base64,{img}");
+                {background}
                 background-size: cover !important;
                 background-position: center !important;
                 background-attachment: fixed !important;
-                color: #ffffff;
+                color: #f8fafc;
             }}
 
-            /* Make content container centered and slightly wider */
             .block-container {{
                 max-width: 700px;
-                margin: 0 auto;
-                padding-top: 3rem;
-                padding-bottom: 3rem;
-            }}
-
-            .stApp > div:first-child > div:first-child > div:first-child {{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
                 width: 100%;
+                margin: 0 auto;
+                padding: 2rem 1.25rem 3rem;
             }}
 
             h1, h2, p, h4 {{
                 text-align: center;
-                color: #ffffff;
+                color: #f8fafc;
             }}
 
-            /* Input boxes without shadow */
+            [data-testid="stForm"] {{
+                padding: 1.25rem;
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                border-radius: 12px;
+                background: rgba(7, 14, 24, 0.92);
+                box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+            }}
+
             div[data-testid="stTextInput"] input {{
-                background-color: rgba(255, 255, 255, 0.1);
-                color: white;
-                border-radius: 5px;
-                border: 1px solid rgba(255, 255, 255, 0.4);
+                background-color: #111827;
+                color: #ffffff;
+                border-radius: 6px;
+                border: 1px solid #9ca3af;
                 padding: 0.75rem 1rem;
                 width: 100%;
                 box-shadow: none !important;
@@ -78,17 +78,18 @@ def apply_custom_styling():
             }}
 
             div[data-testid="stTextInput"] input::placeholder {{
-                color: #b0b0b0;
+                color: #d1d5db;
                 opacity: 1;
             }}
 
-            /* Main action buttons inside a form */
             div[data-testid="stForm"] .stButton>button, .stButton>button {{
                 background-color: #6d28d9 !important;
                 color: white !important;
-                border-radius: 4px !important;
+                border-radius: 6px !important;
+                border: 1px solid #c4b5fd !important;
                 width: 100% !important;
-                padding: 0.6rem !important;
+                min-height: 46px;
+                padding: 0.65rem !important;
                 font-weight: 600;
                 text-decoration: none;
                 text-align: center !important;
@@ -99,17 +100,15 @@ def apply_custom_styling():
                 color: white !important;
             }}
 
-            /* Left-aligned account text and button stacked */
             .account-left {{
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                color: #ddd;
-                font-size: 0.9rem;
+                color: #f3f4f6;
+                font-size: 1rem;
                 margin-top: 0.5rem;
             }}
 
-            /* --- FINAL CSS RULE FOR DELETE BUTTON --- */
             [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:nth-child(2) {{
                 display: flex;
                 justify-content: center;
@@ -132,7 +131,32 @@ def apply_custom_styling():
                 background-color: rgba(255, 255, 255, 0.15) !important;
                 color: #ff4b4b !important;
             }}
-            /* --- END OF FINAL RULE --- */
+
+            @media (max-width: 640px) {{
+                .block-container {{
+                    padding: 1rem 0.75rem 2rem;
+                }}
+                [data-testid="stForm"] {{
+                    padding: 0.9rem;
+                    border-radius: 10px;
+                }}
+                h1 {{
+                    font-size: 1.65rem !important;
+                    line-height: 1.25 !important;
+                }}
+                h2 {{
+                    font-size: 1.35rem !important;
+                }}
+                div[data-testid="stTextInput"] input,
+                div[data-testid="stForm"] .stButton>button,
+                .stButton>button {{
+                    min-height: 48px;
+                    font-size: 1rem;
+                }}
+                .stApp {{
+                    background-attachment: scroll !important;
+                }}
+            }}
         </style>
         """, unsafe_allow_html=True)
 

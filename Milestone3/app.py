@@ -21,15 +21,19 @@ if "page" not in st.session_state:
 def apply_chatbot_styling():
     """Applies custom CSS for the main chatbot interface."""
     img, mime_type = get_img_as_base64("bg.png")
-    if img:
-        st.markdown(f"""
+    background = (
+        f'background: linear-gradient(rgba(0,0,0,0.76), rgba(0,0,0,0.76)), '
+        f'url("data:{mime_type};base64,{img}");'
+        if img else "background-color: #0b1220;"
+    )
+    st.markdown(f"""
         <style>
             .stApp {{
-                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                            url("data:{mime_type};base64,{img}");
+                {background}
                 background-size: cover !important;
                 background-position: center !important;
                 background-attachment: fixed !important;
+                color: #f8fafc;
             }}
             [data-testid="stHeader"] {{ background-color: transparent; }}
             [data-testid="stSidebar"] > div:first-child {{
@@ -49,14 +53,49 @@ def apply_chatbot_styling():
                 color: #f0f2f6 !important;
                 border: 1px solid rgba(255, 255, 255, 0.3);
             }}
-            h1, [data-testid="stCaptionContainer"] p {{ color: #ffffff; }}
+            h1, h2, h3, p, label, [data-testid="stCaptionContainer"] p {{ color: #f8fafc; }}
             .stChatMessage {{
-                background-color: rgba(45, 52, 54, 0.8);
+                background-color: rgba(17, 24, 39, 0.96);
                 border-radius: 0.5rem;
                 padding: 1rem;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.28);
+                color: #ffffff;
+            }}
+            .stChatMessage p, .stChatMessage li, .stChatMessage code {{
+                color: #ffffff !important;
+                font-size: 1rem;
+                line-height: 1.65;
+            }}
+            [data-testid="stChatInput"] textarea {{
+                color: #111827;
+                font-size: 1rem;
             }}
             footer {{ display: none; }}
+
+            @media (max-width: 640px) {{
+                .block-container {{
+                    padding: 1rem 0.75rem 5rem !important;
+                }}
+                h1 {{
+                    font-size: 1.6rem !important;
+                    line-height: 1.25 !important;
+                }}
+                .stChatMessage {{
+                    padding: 0.8rem;
+                }}
+                .stChatMessage p, .stChatMessage li, .stChatMessage code {{
+                    font-size: 1rem;
+                    line-height: 1.7;
+                    overflow-wrap: anywhere;
+                }}
+                [data-testid="stSidebar"] .stButton > button {{
+                    min-height: 46px;
+                    font-size: 1rem;
+                }}
+                .stApp {{
+                    background-attachment: scroll !important;
+                }}
+            }}
         </style>
         """, unsafe_allow_html=True)
 
