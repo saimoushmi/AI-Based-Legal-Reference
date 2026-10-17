@@ -5,6 +5,7 @@ from auth_utils import (
     create_new_session, get_user_sessions, delete_session
 )
 from auth_pages import show_sign_in, show_sign_up, show_edit_profile, get_img_as_base64
+from config import GOOGLE_API_KEY, OPENAI_API_KEY, PINECONE_API_KEY
 
 # Initialize DB
 init_db()
@@ -140,6 +141,13 @@ def show_chatbot():
 
     st.title("⚖️ AI-Based Legal Reference and Case Retrieval System")
     st.caption("Your Legal Chatbot")
+
+    if not GOOGLE_API_KEY and not OPENAI_API_KEY:
+        st.error("Add GOOGLE_API_KEY or OPENAI_API_KEY in Streamlit Cloud under Manage app > Settings > Secrets.")
+        return
+    if not PINECONE_API_KEY:
+        st.error("Add PINECONE_API_KEY in Streamlit Cloud under Manage app > Settings > Secrets.")
+        return
 
     if "rag_chain" not in st.session_state:
         with st.spinner("Loading Legal RAG model..."):
