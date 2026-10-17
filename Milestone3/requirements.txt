@@ -1,0 +1,12 @@
+streamlit
+langchain>=0.3.0
+langchain-core>=0.3.0,<1.0.0
+langchain-community
+langchain-google-genai
+langchain-openai
+langchain-pinecone
+sentence-transformers
+pinecone-client
+python-dotenv
+bcrypt
+requests
