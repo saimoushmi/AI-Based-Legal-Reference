@@ -1,0 +1,5 @@
+langchain
+langchain-community
+beautifulsoup4
+python-docx
+pypdf
